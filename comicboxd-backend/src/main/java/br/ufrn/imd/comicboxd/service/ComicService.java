@@ -3,8 +3,10 @@ package br.ufrn.imd.comicboxd.service;
 import br.ufrn.imd.comicboxd.dtos.ComicDTO;
 import br.ufrn.imd.comicboxd.model.Author;
 import br.ufrn.imd.comicboxd.model.Comic;
+import br.ufrn.imd.comicboxd.model.User;
 import br.ufrn.imd.comicboxd.repositories.AuthorRepository;
 import br.ufrn.imd.comicboxd.repositories.ComicRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -103,5 +105,9 @@ public class ComicService {
         }
 
         return comicPage.map(this::toDTO);
+    }
+
+    public Comic findEntityById(Long comicId){
+        return comicRepository.findById(comicId).orElseThrow(()-> new EntityNotFoundException("Comic not found"));
     }
 }
