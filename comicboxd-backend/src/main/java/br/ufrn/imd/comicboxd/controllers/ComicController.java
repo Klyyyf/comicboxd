@@ -25,7 +25,7 @@ public class ComicController {
 
     @GetMapping
     public ResponseEntity<Page<ComicDTO>> findAll(
-            @PageableDefault(size = 10, sort = "title") Pageable pageable,
+            @PageableDefault(size = 20, sort = "title") Pageable pageable,
             @RequestParam(required = false) String category
     ) {
         Page<ComicDTO> comics = comicService.findAll(pageable, category);
