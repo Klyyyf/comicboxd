@@ -5,11 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="15123334-2ee2-4d36-ac64-1ae2ac8a55b5" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/comicboxd-backend/src/main/java/br/ufrn/imd/comicboxd/config/OpenApiConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/comicboxd-backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/comicboxd-backend/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/comicboxd-backend/src/main/java/br/ufrn/imd/comicboxd/controllers/AuthorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/comicboxd-backend/src/main/java/br/ufrn/imd/comicboxd/controllers/AuthorController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/comicboxd-backend/src/main/java/br/ufrn/imd/comicboxd/controllers/ComicController.java" beforeDir="false" afterPath="$PROJECT_DIR$/comicboxd-backend/src/main/java/br/ufrn/imd/comicboxd/controllers/ComicController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/comicboxd-backend/src/main/java/br/ufrn/imd/comicboxd/repositories/AuthorRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/comicboxd-backend/src/main/java/br/ufrn/imd/comicboxd/repositories/AuthorRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/comicboxd-backend/src/main/java/br/ufrn/imd/comicboxd/service/AuthorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/comicboxd-backend/src/main/java/br/ufrn/imd/comicboxd/service/AuthorService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/comicboxd-backend/src/main/java/br/ufrn/imd/comicboxd/controllers/ReviewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/comicboxd-backend/src/main/java/br/ufrn/imd/comicboxd/controllers/ReviewController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
