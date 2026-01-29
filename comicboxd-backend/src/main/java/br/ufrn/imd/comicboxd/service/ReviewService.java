@@ -1,0 +1,110 @@
+package br.ufrn.imd.comicboxd.service;
+
+
+import br.ufrn.imd.comicboxd.dtos.ReviewRequestDTO;
+import br.ufrn.imd.comicboxd.dtos.ReviewResponseDTO;
+import br.ufrn.imd.comicboxd.model.Comic;
+import br.ufrn.imd.comicboxd.model.Review;
+import br.ufrn.imd.comicboxd.model.User;
+import br.ufrn.imd.comicboxd.repositories.ReviewRepository;
+import jakarta.persistence.EntityNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Service
+public class ReviewService {
+    @Autowired
+    ReviewRepository reviewRepository;
+
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    ComicService comicService;
+
+    public ReviewResponseDTO createReview(ReviewRequestDTO body){
+        User user = userService.findEntityById(body.userId());
+        Comic comic = comicService.findEntityById(body.comicId());
+
+        if (body.rating() < 0 || body.rating() > 5){
+            throw new IllegalArgumentException("Rating must be between 0 and 5");
+        }
+
+        Review review = new Review(
+                body.rating(),
+                body.comment(),
+                user,
+                comic
+        );
+
+        reviewRepository.save(review);
+
+        return new ReviewResponseDTO(
+                review.getId(),
+                review.getRating(),
+                review.getComment(),
+                review.getCreatedAt()
+        );
+    }
+
+    public ReviewResponseDTO getReviewById(Long reviewId){
+        Review review = reviewRepository.findById(reviewId).orElseThrow(()-> new EntityNotFoundException("Review not found"));
+
+        return new ReviewResponseDTO(
+                review.getId(),
+                review.getRating(),
+                review.getComment(),
+                review.getCreatedAt()
+        );
+    }
+
+    public List<ReviewResponseDTO> getAllReviews(){
+        List<Review> reviews = reviewRepository.findAll();
+        List<ReviewResponseDTO> reviewResponseDTOs = new ArrayList<>();
+
+        for(Review review : reviews){
+            reviewResponseDTOs.add(new ReviewResponseDTO(
+                    review.getId(),
+                    review.getRating(),
+                    review.getComment(),
+                    review.getCreatedAt()
+            ));
+        }
+
+        return reviewResponseDTOs;
+    }
+
+    public ReviewResponseDTO updateReview(Long reviewId, ReviewRequestDTO body){
+        Review review =  reviewRepository.findById(reviewId).orElseThrow(()-> new EntityNotFoundException("Review not found"));
+
+        if (body.rating() < 0 || body.rating() > 5){
+            throw new IllegalArgumentException("Rating must be between 0 and 5");
+        }
+
+        review.setRating(body.rating());
+        review.setComment(body.comment());
+
+        reviewRepository.save(review);
+
+        return new ReviewResponseDTO(
+                review.getId(),
+                review.getRating(),
+                review.getComment(),
+                review.getCreatedAt()
+        );
+    }
+
+    public void deleteReviewById(Long  reviewId, Long userId ){
+        Review review = reviewRepository.findById(reviewId).orElseThrow(()-> new EntityNotFoundException("Review not found"));
+
+        if(!review.getUser().getId().equals(userId)){
+            throw new IllegalArgumentException("You are not the owner of this review");
+        }
+        reviewRepository.delete(review);
+    }
+}

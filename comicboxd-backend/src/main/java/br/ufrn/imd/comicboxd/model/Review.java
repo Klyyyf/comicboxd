@@ -5,7 +5,6 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
-@Data
 @Entity
 @Table(name = "tb_reviews")
 public class Review {
@@ -14,7 +13,7 @@ public class Review {
     private Long id;
 
     @Column(nullable = false)
-    private Integer rating; // 0 a 5
+    private float rating; // 0 a 5
 
     @Column(columnDefinition = "TEXT")
     private String comment;
@@ -24,4 +23,63 @@ public class Review {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    @ManyToOne
+    @JoinColumn(name ="comic_id", nullable = false)
+    private Comic comic;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Comic getComic() {
+        return comic;
+    }
+
+    public void setComic(Comic comic) {
+        this.comic = comic;
+    }
+
+    public Review(float rating, String comment, User user, Comic comic) {
+        this.rating = rating;
+        this.comment = comment;
+        this.user = user;
+        this.comic = comic;
+    }
 }
