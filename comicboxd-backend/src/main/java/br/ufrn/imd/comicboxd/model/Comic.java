@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @Entity
@@ -28,4 +29,11 @@ public class Comic {
 
     @Column
     private LocalDate releaseDate;
+
+    @ManyToMany
+    @JoinTable(
+            name = "tb_comics_authors",
+            joinColumns = @JoinColumn(name = "comic_id"),
+            inverseJoinColumns = @JoinColumn(name = "author_id"))
+    private List<Author> authors;
 }

@@ -4,7 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="15123334-2ee2-4d36-ac64-1ae2ac8a55b5" name="Changes" comment="" />
+    <list default="true" id="15123334-2ee2-4d36-ac64-1ae2ac8a55b5" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/comicboxd-backend/src/main/java/br/ufrn/imd/comicboxd/controllers/AuthorController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/comicboxd-backend/src/main/java/br/ufrn/imd/comicboxd/controllers/ComicController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/comicboxd-backend/src/main/java/br/ufrn/imd/comicboxd/dtos/AuthorDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/comicboxd-backend/src/main/java/br/ufrn/imd/comicboxd/dtos/ComicDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/comicboxd-backend/src/main/java/br/ufrn/imd/comicboxd/repositories/AuthorRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/comicboxd-backend/src/main/java/br/ufrn/imd/comicboxd/repositories/ComicRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/comicboxd-backend/src/main/java/br/ufrn/imd/comicboxd/service/AuthorService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/comicboxd-backend/src/main/java/br/ufrn/imd/comicboxd/service/ComicService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/comicboxd-backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/comicboxd-backend/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/comicboxd-backend/src/main/java/br/ufrn/imd/comicboxd/model/Comic.java" beforeDir="false" afterPath="$PROJECT_DIR$/comicboxd-backend/src/main/java/br/ufrn/imd/comicboxd/model/Comic.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,10 +25,26 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Klyyyf&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Klyyyf/comicboxd.git&quot;,
+    &quot;accountId&quot;: &quot;78c0f225-6052-40a3-ae97-9a5d83fab221&quot;
+  }
+}</component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -28,15 +56,28 @@
   &quot;associatedIndex&quot;: 1
 }</component>
   <component name="ProjectId" id="37aJHFPBfjRuiJGT0CBnnNnqoEA" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
+    "Application.ComicboxdApplication.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "Spring Boot.ComicboxdApplication.executor": "Run",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Dev/comicboxd",
@@ -45,15 +86,23 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.0",
     "settings.editor.selected.configurable": "preferences.lookFeel",
     "to.speed.mode.migration.done": "true",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Dev\comicboxd\comicboxd-backend" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="ComicboxdApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="comicboxd" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.klyf.comicboxd.ComicboxdApplication" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="br.ufrn.imd.comicboxd.ComicboxdApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -81,7 +130,10 @@
       <workItem from="1768505016283" duration="5000" />
       <workItem from="1768505028411" duration="6000" />
       <workItem from="1769638394834" duration="3347000" />
-      <workItem from="1769647647723" duration="471000" />
+      <workItem from="1769647647723" duration="7427000" />
+      <workItem from="1769657716202" duration="30000" />
+      <workItem from="1769657758429" duration="661000" />
+      <workItem from="1769658445052" duration="1621000" />
     </task>
     <servers />
   </component>
