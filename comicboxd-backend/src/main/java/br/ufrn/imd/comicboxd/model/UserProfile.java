@@ -1,4 +1,4 @@
-package br.ufrn.imd.model;
+package br.ufrn.imd.comicboxd.model;
 
 import jakarta.persistence.*;
 import lombok.Data;

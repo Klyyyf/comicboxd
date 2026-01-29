@@ -1,4 +1,4 @@
-package com.klyf.comicboxd;
+package br.ufrn.imd.comicboxd;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

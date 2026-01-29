@@ -1,4 +1,4 @@
-package br.ufrn.imd;
+package br.ufrn.imd.comicboxd;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
