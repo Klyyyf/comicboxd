@@ -1,16 +1,37 @@
+import { ChangeEvent } from "react";
+
 type RegisterInputProps = {
+  label: string;
   name: string;
   type: string;
+  placeholder: string;
+  value: string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 };
 
-export default function FormInput({ name, type }: RegisterInputProps) {
+export default function FormInput({
+  label,
+  name,
+  type,
+  placeholder,
+  value,
+  onChange,
+}: RegisterInputProps) {
   return (
-    <>
-      <label htmlFor="">{name}</label>
+    <div className="flex flex-col w-full gap-1">
+      <label htmlFor={name} className="text-gray-700 font-medium ml-1">
+        {label}
+      </label>
+
       <input
+        id={name}
+        name={name}
         type={type}
-        className="bg-slate-300 px-8 pl-3 py-2 rounded-lg w-md text-gray-700"
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        className="bg-slate-300 px-4 py-2 rounded-lg w-full text-gray-700 focus:outline-none focus:ring-2 focus:ring-green-500"
       />
-    </>
+    </div>
   );
 }

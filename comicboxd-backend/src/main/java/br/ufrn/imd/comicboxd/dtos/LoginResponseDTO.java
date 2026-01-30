@@ -1,4 +1,6 @@
 package br.ufrn.imd.comicboxd.dtos;
 
-public record LoginResponseDTO(String acessToken, Long expiresIn) {
+import java.util.Set;
+
+public record LoginResponseDTO(String acessToken, Long expiresIn, Set<String> roles) {
 }

@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService{
@@ -63,10 +64,16 @@ public class UserService{
 
     public UserResponseDTO findById(Long userId){
         User user = userRepository.findById(userId).orElseThrow(()-> new EntityNotFoundException("User not found"));
+
+        Set<String> roles = user.getRoles().stream()
+                .map(role -> role.getRoleName()) // Ou .getName(), dependendo da sua classe Role
+                .collect(Collectors.toSet());
+
         return new UserResponseDTO(
                 user.getId(),
                 user.getUsername(),
-                user.getEmail()
+                user.getEmail(),
+                roles
         );
     }
 
@@ -80,7 +87,11 @@ public class UserService{
         if(!passwordEncoder.matches(loginRequestDTO.password(), user.getPassword())){
             throw new BadCredentialsException("Email or password incorrect");
         }
+        Set<String> roles = user.getRoles().stream()
+                .map(role -> role.getRoleName()) // Ou .getName(), dependendo da sua classe Role
+                .collect(Collectors.toSet());
 
-        return new UserResponseDTO(user.getId(), user.getUsername(), user.getEmail());
+
+        return new UserResponseDTO(user.getId(), user.getUsername(), user.getEmail(), roles);
     }
 }
