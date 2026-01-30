@@ -36,18 +36,15 @@ public class SecurityConfig {
     @Value("${jwt.private.key}")
     private RSAPrivateKey privateKey;
 
-    // =========================
-    // SECURITY FILTER CHAIN
-    // =========================
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .cors(Customizer.withDefaults())   // 👈 ATIVA O CORS
+                .cors(Customizer.withDefaults())
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/api/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/users").permitAll()
-                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // 👈 PRE-FLIGHT
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
@@ -56,9 +53,6 @@ public class SecurityConfig {
         return http.build();
     }
 
-    // =========================
-    // CORS CONFIGURATION (OBRIGATÓRIO)
-    // =========================
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
@@ -74,9 +68,6 @@ public class SecurityConfig {
         return source;
     }
 
-    // =========================
-    // JWT CONFIG
-    // =========================
     @Bean
     public JwtEncoder jwtEncoder() {
         JWK jwk = new RSAKey.Builder(this.publicKey)
@@ -92,9 +83,6 @@ public class SecurityConfig {
         return NimbusJwtDecoder.withPublicKey(publicKey).build();
     }
 
-    // =========================
-    // PASSWORD ENCODER
-    // =========================
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
