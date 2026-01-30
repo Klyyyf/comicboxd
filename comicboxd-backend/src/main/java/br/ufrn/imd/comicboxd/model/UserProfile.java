@@ -9,6 +9,7 @@ import lombok.Data;
 public class UserProfile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_profile_id")
     private Long id;
 
     private String bio;
