@@ -34,7 +34,7 @@ export default function LoginForm() {
         path: "/",
       });
 
-      if (response.roles.includes("ADMIN")) {
+      if (response.roles.includes("admin")) {
         router.push("/admin");
       } else {
         router.push("/feed");
