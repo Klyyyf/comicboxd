@@ -15,3 +15,23 @@ export interface CreateComicDTO {
   coverUrl: string;
   authorNames: string[]; // O backend espera uma lista de strings
 }
+
+export interface Review {
+  id: number;
+  rating: number;
+  comment: string;
+  createAt: string;
+  username: string;
+}
+
+export interface ReviewDTO {
+  id: number;
+  rating: number;
+  comment: string;
+}
+
+export interface ReviewRequestDTO {
+  comicId: number;
+  rating: number;
+  comment: string;
+}

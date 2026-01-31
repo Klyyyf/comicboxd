@@ -95,4 +95,8 @@ public class UserService{
 
         return new UserResponseDTO(user.getId(), user.getUsername(), user.getEmail(), roles);
     }
+
+    public User findUserByEmail(String email){
+        return userRepository.findByEmail(email).orElseThrow(()-> new EntityNotFoundException("User not found"));
+    }
 }

@@ -37,6 +37,12 @@ public class ComicController {
         return ResponseEntity.ok(comics);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ComicDTO> findComicById(@PathVariable Long id) {
+        ComicDTO comic = comicService.findById(id);
+        return ResponseEntity.ok(comic);
+    }
+
     @Operation(summary = "Atualizar HQ", description = "Atualiza os dados de uma HQ existente (título, sinopse, autores, etc)")
     @PutMapping("/{id}")
     public ResponseEntity<ComicDTO> update(@PathVariable Long id, @RequestBody @Valid ComicDTO dto) {

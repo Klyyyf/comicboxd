@@ -107,7 +107,15 @@ public class ComicService {
         return comicPage.map(this::toDTO);
     }
 
+    public ComicDTO findById(Long id) {
+        Comic comic = findEntityById(id);
+
+        return toDTO(comic);
+    }
+
     public Comic findEntityById(Long comicId){
         return comicRepository.findById(comicId).orElseThrow(()-> new EntityNotFoundException("Comic not found"));
     }
+
+
 }

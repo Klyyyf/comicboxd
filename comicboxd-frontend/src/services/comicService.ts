@@ -15,4 +15,9 @@ export const comicService = {
     const response = await api.post("/comics", data);
     return response.data;
   },
+
+  getById: async (id: number | string) => {
+    const response = await api.get(`/comics/${id}`);
+    return response.data as Comic;
+  },
 };

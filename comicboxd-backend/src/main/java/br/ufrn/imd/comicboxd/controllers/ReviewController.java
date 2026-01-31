@@ -41,6 +41,13 @@ public class ReviewController {
         return ResponseEntity.ok().body(reviews);
     }
 
+    @Operation(summary = "Listar Reviews por HQ", description = "Retorna todas as avaliações de uma HQ específica, incluindo o nome do usuário")
+    @GetMapping("/comic/{comicId}")
+    public ResponseEntity<List<ReviewResponseDTO>> getReviewsByComicId(@PathVariable Long comicId) {
+        List<ReviewResponseDTO> reviews = reviewService.getReviewsByComicId(comicId);
+        return ResponseEntity.ok().body(reviews);
+    }
+
     @Operation(summary = "Deletar Review", description = "Remove uma avaliação. Requer o ID da review e o ID do usuário dono da review")
     @DeleteMapping("/{reviewId}/user/{userId}")
     public ResponseEntity<?> deleteReview(@PathVariable Long reviewId, @PathVariable Long userId) {
@@ -54,5 +61,6 @@ public class ReviewController {
         ReviewResponseDTO review = reviewService.updateReview(id, reviewRequestDTO);
         return ResponseEntity.ok().body(review);
     }
+
 }
 

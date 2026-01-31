@@ -28,6 +28,10 @@ public class Review {
     @JoinColumn(name ="comic_id", nullable = false)
     private Comic comic;
 
+    public Review() {
+
+    }
+
     public Long getId() {
         return id;
     }

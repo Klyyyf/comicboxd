@@ -9,6 +9,7 @@ import br.ufrn.imd.comicboxd.model.User;
 import br.ufrn.imd.comicboxd.repositories.ReviewRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 
@@ -27,8 +28,15 @@ public class ReviewService {
     @Autowired
     ComicService comicService;
 
-    public ReviewResponseDTO createReview(ReviewRequestDTO body){
-        User user = userService.findEntityById(body.userId());
+    public ReviewResponseDTO createReview(ReviewRequestDTO body) {
+
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userIdString = authentication.getName();
+
+        Long userId = Long.parseLong(userIdString);
+
+        User user = userService.findEntityById(userId);
+
         Comic comic = comicService.findEntityById(body.comicId());
 
         if (body.rating() < 0 || body.rating() > 5){
@@ -48,7 +56,8 @@ public class ReviewService {
                 review.getId(),
                 review.getRating(),
                 review.getComment(),
-                review.getCreatedAt()
+                review.getCreatedAt(),
+                review.getUser().getUsername()
         );
     }
 
@@ -59,7 +68,8 @@ public class ReviewService {
                 review.getId(),
                 review.getRating(),
                 review.getComment(),
-                review.getCreatedAt()
+                review.getCreatedAt(),
+                review.getUser().getUsername()
         );
     }
 
@@ -72,7 +82,8 @@ public class ReviewService {
                     review.getId(),
                     review.getRating(),
                     review.getComment(),
-                    review.getCreatedAt()
+                    review.getCreatedAt(),
+                    review.getUser().getUsername()
             ));
         }
 
@@ -95,7 +106,8 @@ public class ReviewService {
                 review.getId(),
                 review.getRating(),
                 review.getComment(),
-                review.getCreatedAt()
+                review.getCreatedAt(),
+                review.getUser().getUsername()
         );
     }
 
@@ -106,5 +118,20 @@ public class ReviewService {
             throw new IllegalArgumentException("You are not the owner of this review");
         }
         reviewRepository.delete(review);
+    }
+
+    public List<ReviewResponseDTO> getReviewsByComicId(Long comicId) {
+        List<Review> reviews = reviewRepository.findReviewsWithUserByComicId(comicId);
+
+        return reviews.stream()
+                .map(review -> new ReviewResponseDTO(
+                        review.getId(),
+                        review.getRating(),
+                        review.getComment(),
+                        review.getCreatedAt(),
+                        // AQUI VOCÊ ESTÁ USANDO O RELACIONAMENTO:
+                        review.getUser().getUsername()
+                ))
+                .toList();
     }
 }
