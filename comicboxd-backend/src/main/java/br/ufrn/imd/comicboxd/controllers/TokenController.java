@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.Instant;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
@@ -37,11 +38,17 @@ public class TokenController {
         UserResponseDTO user = userService.authenticate(loginRequestDTO);
 
         var now = Instant.now();
-        var expiresIn = 300L;
+        var expiresIn = 86400L;
+
+        String scopes = String.join(" ", user.roles());
+
+
 
         var claims = JwtClaimsSet.builder()
                 .issuer("comicboxd-backend")
                 .subject(user.id().toString())
+                .claim("email", user.email())
+                .claim("scope", scopes)
                 .issuedAt(now)
                 .expiresAt(now.plusSeconds(expiresIn))
                 .build();

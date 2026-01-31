@@ -45,10 +45,11 @@ public class UserService{
             );
         }
 
-        var basicRole = roleRepository.findByRoleName(Role.Values.BASIC.name())
+        // CORREÇÃO: Busque pela String exata que está no INSERT do banco
+        Role basicRole = roleRepository.findByRoleName("ROLE_BASIC")
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.INTERNAL_SERVER_ERROR,
-                        "Role BASIC não encontrada no banco"
+                        "Role 'ROLE_BASIC' não encontrada. Verifique se o data.sql rodou."
                 ));
 
         User user = new User();

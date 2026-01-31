@@ -29,21 +29,23 @@ export default function LoginForm() {
     try {
       const response = await authService.login(formData);
 
-      setCookie(null, "comicboxd.token", response.token, {
-        maxAge: response.expiresIn,
+      const { accessToken, roles } = response;
+
+      if (!accessToken) {
+        throw new Error("Token não recebido");
+      }
+
+      setCookie(null, "comicboxd.token", accessToken, {
+        maxAge: 86400,
         path: "/",
       });
 
-      if (response.roles.includes("admin")) {
-        router.push("/admin");
-      } else {
-        router.push("/feed");
-      }
-      console.log("Deu certo");
-    } catch (err: any) {
-      console.error(err);
+      const isAdmin = roles?.includes("ROLE_ADMIN") || roles?.includes("ADMIN");
+
+      window.location.href = isAdmin ? "/admin" : "/feed";
+    } catch (err) {
+      console.error("Erro no login:", err);
       setError("Email ou senha incorretos.");
-      console.error(err);
     }
   };
 
