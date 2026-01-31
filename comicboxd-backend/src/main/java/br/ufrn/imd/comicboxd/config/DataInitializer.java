@@ -73,33 +73,39 @@ public class DataInitializer {
             List<Comic> comics = new ArrayList<>();
             Random random = new Random();
 
-            String[] titulos = {
-                    "Batman: O Cavaleiro das Trevas", "Homem-Aranha: Azul", "Watchmen",
-                    "V de Vingança", "Reino do Amanhã", "Sandman: Prelúdios",
-                    "X-Men: A Saga da Fênix", "Demolidor: A Queda de Murdock", "Maus",
-                    "Persépolis", "Akira Vol. 1", "Dragon Ball Z",
-                    "Naruto Gold", "One Piece", "Berserk"
-            };
+            Map<String, String> comicsMap = Map.of(
+                    "Batman: O Cavaleiro das Trevas", "https://static.hq-now.com/hqs/hqs/uploads/picture/image/926101/cv_-_03_pag_-_00.jpg",
+                    "Homem-Aranha", "https://static.hq-now.com/hqs/hqs/uploads/picture/image/946830/ha_-_11_pag_-_00.jpg",
+                    "Sandman", "https://static.hq-now.com/hqs/hqs/uploads/picture/image/75497/Sandman.75.HQ.BR.02DEZ04.GibiHQ.pdf-000.jpg",
+                    "Reino do Amanhã", "https://static.hq-now.com/hqs/hqs/uploads/picture/image/17838/Digitalizar0159.jpg",
+                    "Watchmen", "https://static.hq-now.com/hqs/hqs/uploads/picture/image/37206/Watchmen.12.de.12.HQ.BR.27AGO05.GibiHQ.pdf-000.jpg",
+                    "Coringa", "https://static.hq-now.com/hqs/hqs/uploads/picture/image/500189/001.jpg",
+                    "Dragon Ball", "https://static.hq-now.com/hqs/hqs/uploads/picture/image/660413/Dragon_Ball_-_Artbook_-_01.jpg",
+                    "The Boys", "https://static.hq-now.com/hqs/hqs/uploads/picture/image/854688/The_Boys_072__2012___HD___digital-Empire__001.jpg",
+                    "Demolidor", "https://static.hq-now.com/hqs/hqs/uploads/picture/image/426882/Daredevil-507-001.jpg",
+                    "X-Men: A Saga da Fênix Negra", "https://static.hq-now.com/hqs/hqs/uploads/picture/image/295400/Os_Fabulosos_X-Men_-_A_Saga_da_F_nix_Negra__000.JPG"
+            );
+
 
             String[] categorias = {"Super-herói", "Mangá", "Graphic Novel", "Sci-Fi", "Terror"};
 
-            for (int i = 0; i < titulos.length; i++) {
+            for (Map.Entry<String, String> entry : comicsMap.entrySet()) {
                 Comic comic = new Comic();
 
-                comic.setTitle(titulos[i]);
-                comic.setDescription("Esta é a descrição oficial da HQ " + titulos[i] + ". Uma obra prima indispensável.");
+                comic.setTitle(entry.getKey());
+                comic.setCoverUrl(entry.getValue());
+
+                comic.setDescription("Esta é a descrição oficial da HQ " + entry.getKey() + ". Uma obra prima indispensável.");
                 comic.setCategory(categorias[random.nextInt(categorias.length)]);
-
-                comic.setReleaseDate(LocalDate.now().minusYears(random.nextInt(20)).minusMonths(random.nextInt(12)));
-
-
-                comic.setCoverUrl("https://placecats.com/neo_banana/200/100");
+                comic.setReleaseDate(
+                        LocalDate.now()
+                                .minusYears(random.nextInt(20))
+                                .minusMonths(random.nextInt(12))
+                );
 
                 comic.setAuthors(authors);
-
                 comics.add(comic);
             }
-
             comicRepository.saveAll(comics);
             System.out.println("✅ 15 HQs e Autores cadastrados com sucesso!");
         };
