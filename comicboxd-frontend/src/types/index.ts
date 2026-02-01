@@ -22,6 +22,8 @@ export interface Review {
   comment: string;
   createAt: string;
   username: string;
+  coverUrl: string;
+  comicName: string;
 }
 
 export interface ReviewDTO {

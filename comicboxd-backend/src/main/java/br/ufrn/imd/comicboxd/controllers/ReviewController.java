@@ -48,6 +48,13 @@ public class ReviewController {
         return ResponseEntity.ok().body(reviews);
     }
 
+    @Operation(summary = "Listar Reviews por usuario", description = "Retorna todas as avaliações de uma HQ específica, incluindo o nome do usuário")
+    @GetMapping("/user")
+    public ResponseEntity<List<ReviewResponseDTO>> getReviewsByUserId() {
+        List<ReviewResponseDTO> reviews = reviewService.getAllReviewsByUserId();
+        return ResponseEntity.ok().body(reviews);
+    }
+
     @Operation(summary = "Deletar Review", description = "Remove uma avaliação. Requer o ID da review e o ID do usuário dono da review")
     @DeleteMapping("/{reviewId}/user/{userId}")
     public ResponseEntity<?> deleteReview(@PathVariable Long reviewId, @PathVariable Long userId) {

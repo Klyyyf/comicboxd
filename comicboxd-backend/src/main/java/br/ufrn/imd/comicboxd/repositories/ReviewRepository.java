@@ -8,6 +8,26 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface ReviewRepository extends JpaRepository<Review, Long> {
-    @Query("SELECT r FROM Review r JOIN FETCH r.user WHERE r.comic.id = :comicId ORDER BY r.createdAt DESC")
-    List<Review> findReviewsWithUserByComicId(@Param("comicId") Long comicId);
+
+    // 1️⃣ Reviews feitas por um usuário
+    @Query("""
+        SELECT r
+        FROM Review r
+        JOIN FETCH r.comic
+        WHERE r.user.id = :userId
+        ORDER BY r.createdAt DESC
+    """)
+    List<Review> findByUserIdOrderByCreatedAtDesc(@Param("userId") Long userId);
+
+
+    // 2️⃣ Reviews de uma HQ específica
+    @Query("""
+        SELECT r
+        FROM Review r
+        JOIN FETCH r.user
+        WHERE r.comic.id = :comicId
+        ORDER BY r.createdAt DESC
+    """)
+    List<Review> findByComicIdOrderByCreatedAtDesc(@Param("comicId") Long comicId);
 }
+

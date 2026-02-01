@@ -9,6 +9,7 @@ import br.ufrn.imd.comicboxd.model.User;
 import br.ufrn.imd.comicboxd.repositories.ReviewRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -57,7 +58,9 @@ public class ReviewService {
                 review.getRating(),
                 review.getComment(),
                 review.getCreatedAt(),
-                review.getUser().getUsername()
+                review.getUser().getUsername(),
+                review.getComic().getCoverUrl(),
+                review.getComic().getTitle()
         );
     }
 
@@ -69,7 +72,9 @@ public class ReviewService {
                 review.getRating(),
                 review.getComment(),
                 review.getCreatedAt(),
-                review.getUser().getUsername()
+                review.getUser().getUsername(),
+                review.getComic().getCoverUrl(),
+                review.getComic().getTitle()
         );
     }
 
@@ -83,7 +88,9 @@ public class ReviewService {
                     review.getRating(),
                     review.getComment(),
                     review.getCreatedAt(),
-                    review.getUser().getUsername()
+                    review.getUser().getUsername(),
+                    review.getComic().getCoverUrl(),
+                    review.getComic().getTitle()
             ));
         }
 
@@ -107,7 +114,9 @@ public class ReviewService {
                 review.getRating(),
                 review.getComment(),
                 review.getCreatedAt(),
-                review.getUser().getUsername()
+                review.getUser().getUsername(),
+                review.getComic().getCoverUrl(),
+                review.getComic().getTitle()
         );
     }
 
@@ -121,7 +130,7 @@ public class ReviewService {
     }
 
     public List<ReviewResponseDTO> getReviewsByComicId(Long comicId) {
-        List<Review> reviews = reviewRepository.findReviewsWithUserByComicId(comicId);
+        List<Review> reviews = reviewRepository.findByComicIdOrderByCreatedAtDesc(comicId);
 
         return reviews.stream()
                 .map(review -> new ReviewResponseDTO(
@@ -129,8 +138,34 @@ public class ReviewService {
                         review.getRating(),
                         review.getComment(),
                         review.getCreatedAt(),
-                        // AQUI VOCÊ ESTÁ USANDO O RELACIONAMENTO:
-                        review.getUser().getUsername()
+                        review.getUser().getUsername(),
+                        review.getComic().getCoverUrl(),
+                        review.getComic().getTitle()
+                ))
+                .toList();
+    }
+
+    public List<ReviewResponseDTO> getAllReviewsByUserId() {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String id = auth.getName();
+
+        Long userId = Long.parseLong(id);
+
+        User user = userService.findEntityById(userId);
+
+        List<Review> reviews =
+                reviewRepository.findByUserIdOrderByCreatedAtDesc(user.getId());
+
+        return reviews.stream()
+                .map(review -> new ReviewResponseDTO(
+                        review.getId(),
+                        review.getRating(),
+                        review.getComment(),
+                        review.getCreatedAt(),
+                        review.getUser().getUsername(),
+                        review.getComic().getCoverUrl(),
+                        review.getComic().getTitle()
                 ))
                 .toList();
     }
