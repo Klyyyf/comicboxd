@@ -1,5 +1,7 @@
 "use client";
 
+import LatestNew from "@/src/components/LatestNews";
+import LatestNews from "@/src/components/LatestNews";
 import UserComicsCarousel from "@/src/components/User/UserComicsList";
 import UserLastReviews from "@/src/components/User/UserLastReviews";
 import { comicService } from "@/src/services/comicService";
@@ -52,6 +54,7 @@ export default function FeedPage() {
           ) : (
             <UserLastReviews reviews={reviews} />
           )}
+          <LatestNew />
         </>
       )}
     </div>
