@@ -30,6 +30,9 @@ export default function UserComicsCarousel({
 
   return (
     <div className="relative w-full max-w-6xl mx-auto px-4">
+      <h1 className="text-3xl text-gray-300 font-bold mb-8 pl-4 border-l-4 border-yellow-600">
+        Destaques da Semana
+      </h1>
       <div className="overflow-hidden" ref={emblaRef}>
         <div className="flex -ml-6 py-4">
           {" "}

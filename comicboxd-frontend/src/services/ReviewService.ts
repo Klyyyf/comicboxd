@@ -22,4 +22,8 @@ export const reviewService = {
     const response = await api.get(`/reviews/comic/${id}`);
     return response.data;
   },
+  getReviewsByUser: async () => {
+    const response = await api.get(`/reviews/user`);
+    return response.data;
+  },
 };
