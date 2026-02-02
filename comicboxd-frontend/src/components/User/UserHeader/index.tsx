@@ -38,7 +38,7 @@ export default function UserHeader() {
 
                 {/* Link HQs */}
                 <li className={menuItem}>
-                    <Link href="/hqs">HQS</Link>
+                    <Link href="/comics">HQS</Link>
                 </li>
 
                 {/* Link Reviews */}

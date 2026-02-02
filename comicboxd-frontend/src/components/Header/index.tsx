@@ -47,7 +47,7 @@ export default function Header() {
 
                 {/* LINKS COMUNS (Aparecem sempre) */}
                 <li className={menuItem}>
-                    <Link href="/hqs">HQS</Link>
+                    <Link href="/comics">HQS</Link>
                 </li>
                 <li className={menuItem}>
                     <Link href="/lists">LISTAS</Link>
