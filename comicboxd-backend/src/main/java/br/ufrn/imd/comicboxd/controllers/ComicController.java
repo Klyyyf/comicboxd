@@ -31,9 +31,10 @@ public class ComicController {
     @GetMapping
     public ResponseEntity<Page<ComicDTO>> findAll(
             @PageableDefault(size = 20, sort = "title") Pageable pageable,
-            @RequestParam(required = false) String category
+            @RequestParam(required = false) String category,
+            @RequestParam(required = false) String search
     ) {
-        Page<ComicDTO> comics = comicService.findAll(pageable, category);
+        Page<ComicDTO> comics = comicService.findAll(pageable, category, search);
         return ResponseEntity.ok(comics);
     }
 
@@ -57,4 +58,5 @@ public class ComicController {
         comicService.delete(id);
         return ResponseEntity.noContent().build();
     }
+
 }

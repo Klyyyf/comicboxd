@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ComicRepository extends JpaRepository<Comic, Long> {
     Page<Comic> findByCategory(String category, Pageable pageable);
+    Page<Comic> findByTitleContainingIgnoreCase(String title, Pageable pageable);
 }

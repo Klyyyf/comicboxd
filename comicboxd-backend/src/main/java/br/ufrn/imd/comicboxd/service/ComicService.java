@@ -109,13 +109,15 @@ public class ComicService {
         return comicDTO;
     }
 
-    public Page<ComicDTO> findAll(Pageable pageable, String category) {
+    public Page<ComicDTO> findAll(Pageable pageable, String category, String search) {
         Page<Comic> comicPage;
 
-        if (category == null) {
-            comicPage = comicRepository.findAll(pageable);
-        } else {
+        if (search != null &&  !search.isBlank()) {
+            comicPage = comicRepository.findByTitleContainingIgnoreCase(search, pageable);
+        } else if (category != null && !category.isBlank()) {
             comicPage = comicRepository.findByCategory(category, pageable);
+        } else {
+            comicPage = comicRepository.findAll(pageable);
         }
 
         return comicPage.map(this::toDTO);
