@@ -22,7 +22,9 @@ export default function UserHeader() {
           <li className={menuItem}>
             <Link href="/register">REVIEWS</Link>
           </li>
-          <li className={menuItem}>PERFIL</li>
+            <li className={menuItem}>
+                <Link href="/profile">PERFIL</Link>
+            </li>
         </ul>
       </ul>
     </nav>
