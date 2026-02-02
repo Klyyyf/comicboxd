@@ -1,20 +1,13 @@
 package br.ufrn.imd.comicboxd.service;
 
-
-import br.ufrn.imd.comicboxd.dtos.CreateUserDTO;
-import br.ufrn.imd.comicboxd.dtos.LoginRequestDTO;
-import br.ufrn.imd.comicboxd.dtos.UserResponseDTO;
+import br.ufrn.imd.comicboxd.dtos.*;
 import br.ufrn.imd.comicboxd.model.Role;
 import br.ufrn.imd.comicboxd.model.User;
 import br.ufrn.imd.comicboxd.repositories.RoleRepository;
 import br.ufrn.imd.comicboxd.repositories.UserRepository;
-import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
-import org.hibernate.annotations.NotFound;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -23,12 +16,10 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-public class UserService{
+public class UserService {
 
     private final UserRepository userRepository;
-
     private final RoleRepository roleRepository;
-
     private final PasswordEncoder passwordEncoder;
 
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository) {
@@ -38,14 +29,10 @@ public class UserService{
     }
 
     public void createUser(CreateUserDTO dto) {
-
         if (userRepository.findByEmail(dto.email()).isPresent()) {
-            throw new ResponseStatusException(
-                    HttpStatus.CONFLICT, "Email já cadastrado"
-            );
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Email já cadastrado");
         }
 
-        // CORREÇÃO: Busque pela String exata que está no INSERT do banco
         Role basicRole = roleRepository.findByRoleName("ROLE_BASIC")
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.INTERNAL_SERVER_ERROR,
@@ -61,42 +48,70 @@ public class UserService{
         userRepository.save(user);
     }
 
+    public UserDTO findByUsername(String identifier) {
+        User user = findEntity(identifier);
+        return new UserDTO(user.getId(), user.getUsername(), user.getEmail());
+    }
 
+    public UserDTO updateUser(String identifier, UpdateUserDTO dadosAtualizados) {
+        User user = findEntity(identifier);
 
-    public UserResponseDTO findById(Long userId){
-        User user = userRepository.findById(userId).orElseThrow(()-> new EntityNotFoundException("User not found"));
+        if (dadosAtualizados.nome() != null && !dadosAtualizados.nome().isBlank()) {
+            user.setUsername(dadosAtualizados.nome());
+        }
 
+        if (dadosAtualizados.email() != null && !dadosAtualizados.email().isBlank()) {
+            user.setEmail(dadosAtualizados.email());
+        }
+
+        userRepository.save(user);
+
+        return new UserDTO(user.getId(), user.getUsername(), user.getEmail());
+    }
+
+    private User findEntity(String identifier) {
+        // Tenta tratar como ID numérico
+        try {
+            Long id = Long.parseLong(identifier.trim());
+            return userRepository.findById(id)
+                    .orElseThrow(() -> new RuntimeException("Usuário não encontrado pelo ID: " + id));
+        } catch (NumberFormatException e) {
+            // Não é número, ignora e segue...
+        }
+
+        // Trata como Texto (Username ou Email)
+        return userRepository.findByUsername(identifier)
+                .or(() -> userRepository.findByEmail(identifier))
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado: " + identifier));
+    }
+
+    public UserResponseDTO findById(Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("User not found"));
         Set<String> roles = user.getRoles().stream()
-                .map(role -> role.getRoleName()) // Ou .getName(), dependendo da sua classe Role
+                .map(Role::getRoleName)
                 .collect(Collectors.toSet());
-
-        return new UserResponseDTO(
-                user.getId(),
-                user.getUsername(),
-                user.getEmail(),
-                roles
-        );
+        return new UserResponseDTO(user.getId(), user.getUsername(), user.getEmail(), roles);
     }
 
-    public User findEntityById(Long userId){
-        return userRepository.findById(userId).orElseThrow(()-> new EntityNotFoundException("User not found"));
+    public User findEntityById(Long userId) {
+        return userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("User not found"));
     }
 
-    public UserResponseDTO authenticate(LoginRequestDTO loginRequestDTO){
-        User user = userRepository.findByEmail(loginRequestDTO.email()).orElseThrow(()-> new BadCredentialsException("Email or Password incorrect"));
+    public UserResponseDTO authenticate(LoginRequestDTO loginRequestDTO) {
+        User user = userRepository.findByEmail(loginRequestDTO.email())
+                .orElseThrow(() -> new BadCredentialsException("Email or Password incorrect"));
 
-        if(!passwordEncoder.matches(loginRequestDTO.password(), user.getPassword())){
+        if (!passwordEncoder.matches(loginRequestDTO.password(), user.getPassword())) {
             throw new BadCredentialsException("Email or password incorrect");
         }
         Set<String> roles = user.getRoles().stream()
-                .map(role -> role.getRoleName()) // Ou .getName(), dependendo da sua classe Role
+                .map(Role::getRoleName)
                 .collect(Collectors.toSet());
-
 
         return new UserResponseDTO(user.getId(), user.getUsername(), user.getEmail(), roles);
     }
 
-    public User findUserByEmail(String email){
-        return userRepository.findByEmail(email).orElseThrow(()-> new EntityNotFoundException("User not found"));
+    public User findUserByEmail(String email) {
+        return userRepository.findByEmail(email).orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado."));
     }
 }
