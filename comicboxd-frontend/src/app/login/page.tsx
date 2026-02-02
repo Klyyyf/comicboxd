@@ -5,8 +5,8 @@ import Header from "@/src/components/Header";
 export default function LoginPage() {
   return (
     <div>
+      <Header></Header>
       <Container>
-        <Header></Header>
         <LoginForm />
       </Container>
     </div>

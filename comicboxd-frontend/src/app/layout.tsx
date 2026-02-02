@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Container from "../components/Container";
 import Footer from "../components/Footer";
+import LatestNew from "../components/LatestNews";
 
 export const metadata: Metadata = {
   title: "ComicBoxd",

@@ -5,8 +5,8 @@ import RegisterForm from "@/src/components/Forms/RegisterForm";
 export default function RegisterPage() {
   return (
     <div>
+      <Header></Header>
       <Container>
-        <Header></Header>
         <RegisterForm />
       </Container>
     </div>
