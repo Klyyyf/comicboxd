@@ -14,7 +14,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -32,16 +34,28 @@ public class ComicService {
         entity.setCoverUrl(dto.getCoverUrl());
         entity.setReleaseDate(dto.getReleaseDate());
 
-        if (dto.getAuthorsIds() != null && dto.getAuthorsIds().isEmpty()) {
-            List<Author> authorsFound = authorRepository.findAllById(dto.getAuthorsIds());
+        if (dto.getAuthorNames() != null &&  !dto.getAuthorNames().isEmpty()) {
+            List<Author> authors = new ArrayList<>();
 
-            entity.setAuthors(authorsFound);
+            for (String name : dto.getAuthorNames()) {
+                String cleanName = name.trim();
+
+                Optional<Author> existingAuthor = authorRepository.findByNameIgnoreCase(cleanName);
+
+                if (existingAuthor.isPresent()) {
+                    authors.add(existingAuthor.get());
+                } else {
+                    Author newAuthor = new Author();
+                    newAuthor.setName(cleanName);
+
+                    Author savedAuthor = authorRepository.save(newAuthor);
+                    authors.add(savedAuthor);
+                }
+            }
+            entity.setAuthors(authors);
         }
-
-        Comic savedEntity = comicRepository.save(entity);
-
-        dto.setId(savedEntity.getId());
-        return dto;
+        Comic savedComic = comicRepository.save(entity);
+        return toDTO(savedComic);
     }
 
     @Transactional

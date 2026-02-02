@@ -27,4 +27,5 @@ public class ComicDTO {
     private LocalDate releaseDate;
 
     private List<Long> authorsIds;
+    private List<String> authorNames;
 }
