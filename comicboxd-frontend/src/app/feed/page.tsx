@@ -54,7 +54,6 @@ export default function FeedPage() {
           ) : (
             <UserLastReviews reviews={reviews} />
           )}
-          <LatestNew />
         </>
       )}
     </div>

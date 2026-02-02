@@ -6,6 +6,7 @@ import { useState } from "react";
 import { setCookie } from "nookies";
 import FormInput from "../FormInput";
 import { authService } from "@/src/services/authService";
+import Link from "next/link";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -80,6 +81,23 @@ export default function LoginForm() {
           value={formData.password}
           onChange={handleChange}
         />
+        <div className="flex justify-between text-sm text-gray-400">
+          <button
+            type="button"
+            className="hover:underline hover:text-gray-200 transition"
+          >
+            Esqueceu a senha?
+          </button>
+
+          <p>
+            Não tem uma conta?{" "}
+            <Link href={"/register"}>
+              <span className="text-gray-200 font-semibold hover:underline cursor-pointer">
+                Cadastre-se
+              </span>
+            </Link>
+          </p>
+        </div>
 
         <button
           type="submit"

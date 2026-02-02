@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Container from "../Container";
 
 type Notice = {
   title: string;
@@ -23,7 +24,7 @@ const notices: Notice[] = [
 export default function LatestNew() {
   return (
     <div>
-      <div className="flex justify-between mt-15">
+      <div className="flex justify-between mt-15  w-full">
         <h1 className="text-3xl text-gray-300 font-bold mb-8 pl-4 border-l-4 border-yellow-600 ">
           Ultimas notícias
         </h1>

@@ -20,7 +20,7 @@ export interface Review {
   id: number;
   rating: number;
   comment: string;
-  createAt: string;
+  createdAt: string;
   username: string;
   coverUrl: string;
   comicName: string;

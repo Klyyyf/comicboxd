@@ -1,5 +1,6 @@
 "use client";
 
+import StarRating from "@/src/components/StarRating";
 import { reviewService } from "@/src/services/ReviewService";
 import { Review } from "@/src/types";
 import Image from "next/image";
@@ -38,13 +39,13 @@ export default function ReviewPage() {
   }
 
   return (
-    <div className="flex gap-12 max-w-5xl mx-auto p-6">
-      <div className="relative w-[270px] h-[400px] rounded-lg overflow-hidden bg-gray-800">
+    <div className="flex gap-12 max-w-5xl mx-auto p-6 ">
+      <div className="relative w-[230px] h-[350px] shrink-0 rounded-lg overflow-hidden bg-gray-800">
         <Image
           src={review.coverUrl}
           alt={review.comicName}
           fill
-          className="object-cover"
+          className="object-contain object-center"
           priority
         />
       </div>
@@ -57,11 +58,24 @@ export default function ReviewPage() {
         <h1 className="text-3xl font-bold">{review.comicName}</h1>
 
         <div className="flex items-center gap-4 text-sm text-gray-400">
-          <span>⭐ {review.rating}/5</span>
-          <span>{review.createAt}</span>
+          <span>
+            <StarRating rating={review.rating} />
+          </span>
         </div>
+        <span className="text-gray-400 leading-relaxed text-sm">
+          Lida em{" "}
+          {review.createdAt
+            ? new Date(review.createdAt).toLocaleDateString("pt-BR", {
+                day: "2-digit",
+                month: "short",
+                year: "numeric",
+              })
+            : "N/A"}
+        </span>
 
-        <p className="text-gray-200 leading-relaxed">{review.comment}</p>
+        <p className="text-gray-200 leading-relaxed text-md">
+          {review.comment}
+        </p>
       </div>
     </div>
   );
