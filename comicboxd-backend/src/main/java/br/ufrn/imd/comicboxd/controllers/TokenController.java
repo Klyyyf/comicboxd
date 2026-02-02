@@ -4,6 +4,8 @@ import br.ufrn.imd.comicboxd.dtos.LoginRequestDTO;
 import br.ufrn.imd.comicboxd.dtos.LoginResponseDTO;
 import br.ufrn.imd.comicboxd.dtos.UserResponseDTO;
 import br.ufrn.imd.comicboxd.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
@@ -19,6 +21,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
+@Tag(name = "Authentication", description = "Endpoints para autenticação e geração de tokens")
 public class TokenController {
 
 
@@ -33,6 +36,7 @@ public class TokenController {
         this.jwtEncoder = jwtEncoder;
     }
 
+    @Operation(summary = "Realizar Login", description = "Autentica o usuário com email e senha e retorna um Token JWT válido por 24h")
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginRequestDTO loginRequestDTO){
         UserResponseDTO user = userService.authenticate(loginRequestDTO);
