@@ -9,7 +9,6 @@ import java.util.List;
 
 public interface ReviewRepository extends JpaRepository<Review, Long> {
 
-    // 1️⃣ Reviews feitas por um usuário
     @Query("""
         SELECT r
         FROM Review r
@@ -19,8 +18,6 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     """)
     List<Review> findByUserIdOrderByCreatedAtDesc(@Param("userId") Long userId);
 
-
-    // 2️⃣ Reviews de uma HQ específica
     @Query("""
         SELECT r
         FROM Review r
