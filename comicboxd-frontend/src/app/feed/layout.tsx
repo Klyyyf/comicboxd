@@ -12,10 +12,8 @@ interface FeedLayoutProps {
 export default function FeedLayout({ children }: FeedLayoutProps) {
   return (
     <div className="min-h-screen ">
-      {/* Essa Navbar só aparece dentro de /feed */}
       <UserHeader />
       <Container>
-        {/* O 'children' é a página atual (page.tsx) */}
         <main className="container mx-auto p-4">{children}</main>
       </Container>
     </div>
