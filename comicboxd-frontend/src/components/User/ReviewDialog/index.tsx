@@ -38,7 +38,7 @@ export default function ReviewDialog({
 
   async function handleSubmit() {
     if (rating === 0) {
-      alert("Por favor, selecione uma nota de 1 a 5 estrelas.");
+      toast.warn("Por favor, selecione uma nota de 1 a 5 estrelas");
       return;
     }
 
@@ -49,7 +49,8 @@ export default function ReviewDialog({
         rating,
         comment,
       });
-      alert("Avaliação enviada com sucesso!");
+
+      toast.success("Review criada com sucesso!");
       onSuccess();
       onClose(false);
       setRating(0);
