@@ -14,7 +14,6 @@ export default function Header() {
 
   return (
     <nav className="flex gap-8 p-2 items-center justify-around relative z-10">
-      {/* Logo */}
       <Link href="/">
         <div className="relative h-25 w-50 cursor-pointer">
           <Image
@@ -27,9 +26,7 @@ export default function Header() {
         </div>
       </Link>
 
-      {/* Menu de Navegação */}
       <ul className="flex gap-4 font-semibold tracking-widest uppercase text-gray-300">
-        {/* LINKS COMUNS (Aparecem sempre) */}
         <li className={menuItem}>
           <Link href="/login">LOGIN</Link>
         </li>
@@ -43,7 +40,6 @@ export default function Header() {
         </li>
       </ul>
 
-      {/* Barra de Pesquisa */}
       <div className="relative">
         <CiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-600" />
         <input

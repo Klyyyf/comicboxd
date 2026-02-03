@@ -3,8 +3,6 @@
 import { useState } from "react";
 import { comicService } from "@/src/services/comicService";
 import { CreateComicDTO } from "@/src/types";
-
-// UI Components do Dialog
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -17,6 +15,7 @@ import {
 } from "@/components/ui/dialog";
 import { PlusCircle, Loader2 } from "lucide-react";
 import { AdminInput, AdminTextarea } from "../Forms";
+import { toast } from "react-toastify";
 
 interface Props {
   onSuccess: () => void;
@@ -37,7 +36,6 @@ export default function CreateComicDialog({ onSuccess }: Props) {
 
   const [formData, setFormData] = useState(initialFormState);
 
-  // Um handler genérico para Input e Textarea
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
@@ -63,14 +61,13 @@ export default function CreateComicDialog({ onSuccess }: Props) {
       };
 
       await comicService.create(payload);
-      alert("HQ Cadastrada com sucesso!");
+      toast.success("HQ Cadastrada com sucesso!");
 
       setOpen(false);
       setFormData(initialFormState);
       onSuccess();
     } catch (error) {
-      console.error("Erro ao salvar:", error);
-      alert("Erro ao salvar.");
+      toast.error("Ocorreu um erro ao salvar");
     } finally {
       setLoading(false);
     }

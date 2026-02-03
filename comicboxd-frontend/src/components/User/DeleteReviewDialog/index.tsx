@@ -2,8 +2,6 @@
 
 import { useState } from "react";
 import { reviewService } from "@/src/services/ReviewService";
-
-// shadcn/ui
 import {
   Dialog,
   DialogContent,
@@ -16,6 +14,7 @@ import {
 import { Button } from "@/components/ui/button";
 
 import { Trash2, Loader2 } from "lucide-react";
+import { toast } from "react-toastify";
 
 interface Props {
   reviewId: number;
@@ -34,8 +33,7 @@ export default function DeleteReviewDialog({ reviewId, onSuccess }: Props) {
       setOpen(false);
       onSuccess();
     } catch (error) {
-      console.error("Erro ao excluir review:", error);
-      alert("Erro ao excluir a review.");
+      toast.error("Erro ao excluir review");
     } finally {
       setLoading(false);
     }

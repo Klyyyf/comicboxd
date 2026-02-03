@@ -8,6 +8,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import EditReviewDialog from "@/src/components/User/EditReviewDialog";
 import DeleteReviewDialog from "@/src/components/User/DeleteReviewDialog";
+import { toast } from "react-toastify";
 
 export default function ReviewsPage() {
   const [reviews, setReviews] = useState<Review[]>([]);
@@ -18,7 +19,7 @@ export default function ReviewsPage() {
       const response = await reviewService.getReviewsByUser();
       setReviews(response);
     } catch (error) {
-      console.error(error);
+      toast.error("Erro ao carregar reviews");
     } finally {
       setLoading(false);
     }

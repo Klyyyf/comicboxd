@@ -7,6 +7,11 @@ const nextConfig = {
         hostname: "static.hq-now.com",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "placecats.com",
+        pathname: "/**",
+      },
     ],
   },
 };

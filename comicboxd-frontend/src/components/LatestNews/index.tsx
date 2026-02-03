@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Container from "../Container";
 
 type Notice = {
   title: string;
@@ -36,7 +35,6 @@ export default function LatestNew() {
           key={index}
           className="w-full h-50 flex mb-10 py-2 rounded-lg overflow-hidden"
         >
-          {/* Imagem */}
           <div className="w-1/3 h-full">
             <div className="relative w-full h-full">
               <Image
@@ -48,7 +46,6 @@ export default function LatestNew() {
             </div>
           </div>
 
-          {/* Texto */}
           <div className="h-full flex-1 px-8 bg-[#2c3440] overflow-hidden flex flex-col justify-center">
             <h1 className="text-2xl font-bold text-gray-300 hover:text-slate-400 cursor-pointer">
               {notice.title}

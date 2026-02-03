@@ -2,7 +2,6 @@ import { ReviewRequestDTO, ReviewDTO, UpdateReviewDTO } from "../types"; // Impo
 import api from "./api";
 
 export const reviewService = {
-  // Agora espera o RequestDTO (com comicId) e não o ReviewDTO (com id)
   create: async (data: ReviewRequestDTO) => {
     const response = await api.post("/reviews", data);
     return response.data;

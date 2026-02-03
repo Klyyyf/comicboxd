@@ -3,6 +3,7 @@ import "./globals.css";
 import Container from "../components/Container";
 import Footer from "../components/Footer";
 import LatestNew from "../components/LatestNews";
+import ToastProvider from "../components/ToastProvider";
 
 export const metadata: Metadata = {
   title: "ComicBoxd",
@@ -17,7 +18,10 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className="bg-[#14181c] min-h-screen text-white flex flex-col">
-        <main className="flex-1">{children}</main>
+        <main className="flex-1">
+          <ToastProvider />
+          {children}
+        </main>
         <Footer />
       </body>
     </html>

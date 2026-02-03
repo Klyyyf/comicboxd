@@ -6,6 +6,7 @@ import api from "../../../services/api";
 import Container from "../../../components/Container";
 import Header from "../../../components/Header";
 import { User, Mail, LogOut, Edit2, Save, X } from "lucide-react";
+import { toast } from "react-toastify";
 
 interface UserProfile {
   id: number;
@@ -16,9 +17,8 @@ interface UserProfile {
 export default function ProfilePage() {
   const [user, setUser] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
-  const [isEditing, setIsEditing] = useState(false); // Controle do modo edição
+  const [isEditing, setIsEditing] = useState(false);
 
-  // Estados para os campos do formulário
   const [editName, setEditName] = useState("");
   const [editEmail, setEditEmail] = useState("");
 
@@ -35,7 +35,7 @@ export default function ProfilePage() {
       setEditName(response.data.nome);
       setEditEmail(response.data.email);
     } catch (error) {
-      console.error("Erro ao carregar perfil", error);
+      toast.error("Erro ao carregar perfil");
       router.push("/");
     } finally {
       setLoading(false);
@@ -50,11 +50,10 @@ export default function ProfilePage() {
       });
 
       setUser(response.data);
-      setIsEditing(false); // Sai do modo edição
-      alert("Perfil atualizado com sucesso!");
+      setIsEditing(false);
+      toast.success("Perfil atualizado com sucesso!");
     } catch (error) {
-      console.error("Erro ao atualizar", error);
-      alert("Erro ao atualizar perfil. Tente novamente.");
+      toast.error("Erro ao atualizar perfil. Tente novamente");
     }
   }
 
@@ -76,7 +75,6 @@ export default function ProfilePage() {
       <Container>
         <main className="py-10 max-w-2xl mx-auto px-4">
           <div className="bg-slate-900 border border-slate-800 rounded-xl shadow-2xl overflow-hidden relative">
-            {/* Botão de Editar (Topo Direita) */}
             {!isEditing && (
               <button
                 onClick={() => setIsEditing(true)}
@@ -87,7 +85,6 @@ export default function ProfilePage() {
               </button>
             )}
 
-            {/* Header do Card */}
             <div className="p-6 border-b border-slate-800 flex items-center gap-4 bg-slate-900/50">
               <div className="h-20 w-20 rounded-full bg-slate-800 border-2 border-green-500 flex items-center justify-center text-2xl font-bold text-green-500 select-none">
                 {user?.nome?.substring(0, 2).toUpperCase()}
@@ -104,7 +101,6 @@ export default function ProfilePage() {
             </div>
 
             <div className="p-6 grid gap-6">
-              {/* Campo: Nome */}
               <div className="flex items-center gap-4 p-4 bg-slate-800/30 rounded-lg border border-slate-800">
                 <div className="p-2 bg-green-500/10 rounded-full">
                   <User className="text-green-500" size={24} />
@@ -126,7 +122,6 @@ export default function ProfilePage() {
                 </div>
               </div>
 
-              {/* Campo: Email */}
               <div className="flex items-center gap-4 p-4 bg-slate-800/30 rounded-lg border border-slate-800">
                 <div className="p-2 bg-green-500/10 rounded-full">
                   <Mail className="text-green-500" size={24} />
@@ -148,7 +143,6 @@ export default function ProfilePage() {
                 </div>
               </div>
 
-              {/* Botões de Ação (Salvar/Cancelar ou Logout) */}
               {isEditing ? (
                 <div className="flex gap-3 mt-4">
                   <button

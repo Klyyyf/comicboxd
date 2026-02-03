@@ -3,8 +3,6 @@
 import { useState, useEffect } from "react";
 import { Review } from "@/src/types";
 import { reviewService } from "@/src/services/ReviewService";
-
-// shadcn/ui
 import {
   Dialog,
   DialogContent,
@@ -20,6 +18,7 @@ import StarRating from "@/src/components/StarRating";
 import { Loader2 } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
 import { FaEdit } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 interface Props {
   review: Review;
@@ -46,8 +45,7 @@ export default function EditReviewDialog({ review, onSuccess }: Props) {
       setOpen(false);
       onSuccess();
     } catch (error) {
-      console.error("Erro ao atualizar review:", error);
-      alert("Erro ao salvar alterações.");
+      toast.error("Erro ao atualizar review");
     } finally {
       setLoading(false);
     }
@@ -74,13 +72,11 @@ export default function EditReviewDialog({ review, onSuccess }: Props) {
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="grid gap-4 py-4">
-          {/* Nota */}
           <div className="flex flex-col gap-2">
             <label className="text-sm text-slate-300">Nota</label>
             <StarRating rating={rating} editable onChange={setRating} />
           </div>
 
-          {/* Comentário */}
           <div className="flex flex-col gap-2">
             <label className="text-sm text-slate-300">Comentário</label>
             <Textarea
