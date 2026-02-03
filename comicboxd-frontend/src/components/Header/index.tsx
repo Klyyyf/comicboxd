@@ -32,7 +32,7 @@ export default function Header() {
         </li>
 
         <li className={menuItem}>
-          <Link href="/registe">REGISTRO</Link>
+          <Link href="/register">REGISTRO</Link>
         </li>
       </ul>
 

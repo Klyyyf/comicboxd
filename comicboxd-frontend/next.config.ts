@@ -1,19 +1,17 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "static.hq-now.com",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
-        hostname: "placecats.com",
-        pathname: "/**",
-      },
-    ],
-  },
+    images: {
+        remotePatterns: [
+            {
+                protocol: "https",
+                hostname: "**",
+            },
+            {
+                protocol: "http",
+                hostname: "**",
+            },
+        ],
+    },
 };
 
 export default nextConfig;
