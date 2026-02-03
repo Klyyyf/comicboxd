@@ -3,6 +3,7 @@ package br.ufrn.imd.comicboxd.service;
 
 import br.ufrn.imd.comicboxd.dtos.ReviewRequestDTO;
 import br.ufrn.imd.comicboxd.dtos.ReviewResponseDTO;
+import br.ufrn.imd.comicboxd.dtos.ReviewUpdateDTO;
 import br.ufrn.imd.comicboxd.model.Comic;
 import br.ufrn.imd.comicboxd.model.Review;
 import br.ufrn.imd.comicboxd.model.User;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ReviewService {
@@ -31,6 +33,7 @@ public class ReviewService {
 
     public ReviewResponseDTO createReview(ReviewRequestDTO body) {
 
+
         var authentication = SecurityContextHolder.getContext().getAuthentication();
         String userIdString = authentication.getName();
 
@@ -39,6 +42,28 @@ public class ReviewService {
         User user = userService.findEntityById(userId);
 
         Comic comic = comicService.findEntityById(body.comicId());
+
+        Optional<Review> existingReview =
+                reviewRepository.findByUserIdAndComicId(user.getId(), comic.getId());
+
+        if (existingReview.isPresent()) {
+            Review review = existingReview.get();
+
+            review.setRating(body.rating());
+            review.setComment(body.comment());
+
+            reviewRepository.save(review);
+
+            return new ReviewResponseDTO(
+                    review.getId(),
+                    review.getRating(),
+                    review.getComment(),
+                    review.getCreatedAt(),
+                    review.getUser().getUsername(),
+                    review.getComic().getCoverUrl(),
+                    review.getComic().getTitle()
+            );
+        }
 
         if (body.rating() < 0 || body.rating() > 5){
             throw new IllegalArgumentException("Rating must be between 0 and 5");
@@ -97,7 +122,7 @@ public class ReviewService {
         return reviewResponseDTOs;
     }
 
-    public ReviewResponseDTO updateReview(Long reviewId, ReviewRequestDTO body){
+    public ReviewResponseDTO updateReview(Long reviewId, ReviewUpdateDTO body){
         Review review =  reviewRepository.findById(reviewId).orElseThrow(()-> new EntityNotFoundException("Review not found"));
 
         if (body.rating() < 0 || body.rating() > 5){
@@ -120,12 +145,9 @@ public class ReviewService {
         );
     }
 
-    public void deleteReviewById(Long  reviewId, Long userId ){
+    public void deleteReviewById(Long reviewId ){
         Review review = reviewRepository.findById(reviewId).orElseThrow(()-> new EntityNotFoundException("Review not found"));
 
-        if(!review.getUser().getId().equals(userId)){
-            throw new IllegalArgumentException("You are not the owner of this review");
-        }
         reviewRepository.delete(review);
     }
 

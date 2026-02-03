@@ -1,5 +1,6 @@
 // src/app/feed/layout.tsx
 import Container from "@/src/components/Container";
+import LatestNew from "@/src/components/LatestNews";
 import UserHeader from "@/src/components/User/UserHeader";
 import { ReactNode } from "react";
 // Supondo que você criou esse componente
