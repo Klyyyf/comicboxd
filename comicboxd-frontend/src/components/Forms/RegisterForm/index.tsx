@@ -17,7 +17,6 @@ export default function RegisterForm() {
   const [error, setError] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // Agora e.target.name virá correto do componente filho
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
@@ -28,11 +27,11 @@ export default function RegisterForm() {
 
     try {
       await authService.register(formData);
-      // Sucesso: Redireciona para o login
+
       router.push("/login");
     } catch (err: any) {
       console.error(err);
-      // Pega a mensagem de erro do backend se existir
+
       setError(err.response?.data?.message || "Erro ao criar conta.");
     }
   };
@@ -46,7 +45,7 @@ export default function RegisterForm() {
       >
         <FormInput
           label="Email"
-          name="email" // Tem que ser igual à chave do useState
+          name="email"
           type="email"
           placeholder="exemplo@email.com"
           value={formData.email}
@@ -54,7 +53,7 @@ export default function RegisterForm() {
         />
         <FormInput
           label="Nome de usuário"
-          name="username" // Tem que ser igual à chave do useState
+          name="username"
           type="text"
           placeholder="Seu usuário"
           value={formData.username}
@@ -62,7 +61,7 @@ export default function RegisterForm() {
         />
         <FormInput
           label="Senha"
-          name="password" // Tem que ser igual à chave do useState
+          name="password"
           type="password"
           placeholder="********"
           value={formData.password}

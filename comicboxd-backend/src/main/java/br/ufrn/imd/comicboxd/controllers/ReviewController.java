@@ -3,6 +3,7 @@ package br.ufrn.imd.comicboxd.controllers;
 
 import br.ufrn.imd.comicboxd.dtos.ReviewRequestDTO;
 import br.ufrn.imd.comicboxd.dtos.ReviewResponseDTO;
+import br.ufrn.imd.comicboxd.dtos.ReviewUpdateDTO;
 import br.ufrn.imd.comicboxd.service.ReviewService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -56,16 +57,16 @@ public class ReviewController {
     }
 
     @Operation(summary = "Deletar Review", description = "Remove uma avaliação. Requer o ID da review e o ID do usuário dono da review")
-    @DeleteMapping("/{reviewId}/user/{userId}")
-    public ResponseEntity<?> deleteReview(@PathVariable Long reviewId, @PathVariable Long userId) {
-        reviewService.deleteReviewById(reviewId, userId);
+    @DeleteMapping("/{reviewId}")
+    public ResponseEntity<?> deleteReview(@PathVariable Long reviewId) {
+        reviewService.deleteReviewById(reviewId);
         return ResponseEntity.noContent().build();
     }
 
     @Operation(summary = "Atualizar Review", description = "Atualiza o texto ou nota de uma avaliação existente")
     @PutMapping("/{id}")
-    public ResponseEntity<ReviewResponseDTO> updated(@PathVariable Long id, @RequestBody ReviewRequestDTO reviewRequestDTO) {
-        ReviewResponseDTO review = reviewService.updateReview(id, reviewRequestDTO);
+    public ResponseEntity<ReviewResponseDTO> updated(@PathVariable Long id, @RequestBody ReviewUpdateDTO data) {
+        ReviewResponseDTO review = reviewService.updateReview(id, data);
         return ResponseEntity.ok().body(review);
     }
 

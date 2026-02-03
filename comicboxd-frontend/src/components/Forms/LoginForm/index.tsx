@@ -1,12 +1,12 @@
-"use client"; // <--- 1. OBRIGATÓRIO no App Router
+"use client";
 
-// 2. Mude o import para navigation
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { setCookie } from "nookies";
 import FormInput from "../FormInput";
 import { authService } from "@/src/services/authService";
 import Link from "next/link";
+import { toast } from "react-toastify";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -16,8 +16,6 @@ export default function LoginForm() {
     password: "",
   });
 
-  const [error, setError] = useState("");
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -25,7 +23,6 @@ export default function LoginForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
 
     try {
       const response = await authService.login(formData);
@@ -45,20 +42,13 @@ export default function LoginForm() {
 
       window.location.href = isAdmin ? "/admin" : "/feed";
     } catch (err) {
-      console.error("Erro no login:", err);
-      setError("Email ou senha incorretos.");
+      toast.error("Email ou senha incorretos");
     }
   };
 
   return (
     <div className="flex items-center flex-col gap-8 w-full">
       <h1 className="text-3xl font-bold mt-8">Acesse sua conta</h1>
-
-      {error && (
-        <div className="bg-red-100 text-red-700 p-3 rounded-md w-full max-w-md text-center">
-          {error}
-        </div>
-      )}
 
       <form
         className="flex flex-col gap-4 w-full max-w-md px-4"

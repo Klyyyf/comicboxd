@@ -87,7 +87,7 @@ public class DataInitializer {
             );
 
 
-            String[] categorias = {"Super-herói", "Mangá", "Graphic Novel", "Sci-Fi", "Terror"};
+            String[] categorias = {"MARVEL", "DC", "MANGA", "INDIE"};
 
             for (Map.Entry<String, String> entry : comicsMap.entrySet()) {
                 Comic comic = new Comic();

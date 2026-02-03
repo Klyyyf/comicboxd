@@ -13,7 +13,7 @@ export interface CreateComicDTO {
   category: string;
   releaseDate: string;
   coverUrl: string;
-  authorNames: string[]; // O backend espera uma lista de strings
+  authorNames: string[];
 }
 
 export interface Review {
@@ -34,6 +34,11 @@ export interface ReviewDTO {
 
 export interface ReviewRequestDTO {
   comicId: number;
+  rating: number;
+  comment: string;
+}
+
+export interface UpdateReviewDTO {
   rating: number;
   comment: string;
 }

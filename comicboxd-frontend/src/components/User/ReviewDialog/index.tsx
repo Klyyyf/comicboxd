@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { Star } from "lucide-react";
 
-// Importando componentes do Shadcn/UI
 import {
   Dialog,
   DialogContent,
@@ -16,7 +15,8 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { reviewService } from "@/src/services/ReviewService";
-import { ReviewDTO } from "@/src/types"; // Ajuste o import se necessário
+import { ReviewDTO } from "@/src/types";
+import { toast } from "react-toastify";
 
 interface ReviewDialogProps {
   isOpen: boolean;
@@ -35,11 +35,10 @@ export default function ReviewDialog({
   const [hoverRating, setHoverRating] = useState(0);
   const [comment, setComment] = useState("");
   const [loading, setLoading] = useState(false);
-  // Removi o state 'review' que não estava sendo usado
 
   async function handleSubmit() {
     if (rating === 0) {
-      alert("Por favor, selecione uma nota de 1 a 5 estrelas.");
+      toast.warn("Por favor, selecione uma nota de 1 a 5 estrelas");
       return;
     }
 
@@ -50,14 +49,14 @@ export default function ReviewDialog({
         rating,
         comment,
       });
-      alert("Avaliação enviada com sucesso!");
+
+      toast.success("Review criada com sucesso!");
       onSuccess();
       onClose(false);
       setRating(0);
       setComment("");
     } catch (error) {
-      console.error(error);
-      alert("Erro ao enviar avaliação.");
+      toast.error("Erro ao enviar avaliação.");
     } finally {
       setLoading(false);
     }
@@ -65,12 +64,8 @@ export default function ReviewDialog({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      {/* 1. Mudei o bg-white para bg-slate-900 (Fundo escuro)
-          2. Adicionei border-slate-800 (Borda sutil)
-      */}
       <DialogContent className="sm:max-w-[500px] bg-slate-900 border border-slate-800 shadow-2xl">
         <DialogHeader>
-          {/* Título Branco */}
           <DialogTitle className="text-white text-xl">Avaliar HQ</DialogTitle>
           <DialogDescription className="text-slate-400">
             Dê uma nota e conte o que você achou desta história.
@@ -78,7 +73,6 @@ export default function ReviewDialog({
         </DialogHeader>
 
         <div className="grid gap-6 py-4">
-          {/* --- ESTRELAS (Rating) --- */}
           <div className="flex flex-col items-center gap-2">
             <Label className="text-slate-400 font-semibold uppercase text-xs tracking-wider">
               Sua Nota
@@ -97,8 +91,8 @@ export default function ReviewDialog({
                     size={32}
                     className={`transition-colors duration-200 ${
                       star <= (hoverRating || rating)
-                        ? "fill-yellow-400 text-yellow-400" // Estrela Cheia
-                        : "text-slate-700 fill-slate-900/50" // Estrela Vazia (Escura agora)
+                        ? "fill-yellow-400 text-yellow-400"
+                        : "text-slate-700 fill-slate-900/50"
                     }`}
                   />
                 </button>
@@ -113,16 +107,11 @@ export default function ReviewDialog({
             </span>
           </div>
 
-          {/* --- TEXTAREA (Comentário) --- */}
           <div className="grid gap-2">
             <Label htmlFor="comment" className="text-slate-300">
               Seu Comentário
             </Label>
-            {/* Textarea Dark Mode:
-                - bg-slate-950 (Fundo bem escuro)
-                - border-slate-700 (Borda cinza escuro)
-                - text-slate-100 (Texto claro)
-            */}
+
             <Textarea
               id="comment"
               placeholder="Escreva sua opinião aqui..."
@@ -134,7 +123,6 @@ export default function ReviewDialog({
         </div>
 
         <DialogFooter className="gap-2 sm:gap-0">
-          {/* Botão Cancelar Dark */}
           <Button
             variant="outline"
             onClick={() => onClose(false)}
@@ -144,7 +132,6 @@ export default function ReviewDialog({
             Cancelar
           </Button>
 
-          {/* Botão Salvar (Azul vibrante) */}
           <Button
             onClick={handleSubmit}
             disabled={loading}

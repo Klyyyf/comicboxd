@@ -43,7 +43,7 @@ export default function UserLastReviews({ reviews }: UserLastReviewsProps) {
             >
               <div className="flex flex-col h-full group">
                 <Link
-                  href={`/feed/review/${review.id}`}
+                  href={`/feed/reviews/${review.id}`}
                   className="block overflow-hidden rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
                 >
                   <div className="relative aspect-[2/3] w-full bg-gray-800">

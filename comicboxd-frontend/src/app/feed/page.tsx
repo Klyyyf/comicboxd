@@ -8,6 +8,7 @@ import { comicService } from "@/src/services/comicService";
 import { reviewService } from "@/src/services/ReviewService";
 import { Comic, Review } from "@/src/types";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 export default function FeedPage() {
   const [comics, setComics] = useState<Comic[]>([]);
@@ -21,7 +22,7 @@ export default function FeedPage() {
         const comicsData = await comicService.getAll();
         setComics(comicsData);
       } catch (err) {
-        console.error("Erro ao carregar HQs", err);
+        toast.error("Erro ao carregar HQs");
       } finally {
         setLoadingComics(false);
       }
@@ -30,7 +31,7 @@ export default function FeedPage() {
         const reviewsData = await reviewService.getReviewsByUser();
         setReviews(reviewsData);
       } catch (err) {
-        console.error("Erro ao carregar reviews", err);
+        toast.error("Erro ao carregar reviews");
       } finally {
         setLoadingReviews(false);
       }
@@ -54,6 +55,7 @@ export default function FeedPage() {
           ) : (
             <UserLastReviews reviews={reviews} />
           )}
+          <LatestNew />
         </>
       )}
     </div>

@@ -6,6 +6,7 @@ import { Review } from "@/src/types";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 export default function ReviewPage() {
   const { id } = useParams<{ id: string }>();
@@ -21,7 +22,7 @@ export default function ReviewPage() {
         const response = await reviewService.getReviewById(id);
         setReview(response);
       } catch (error) {
-        console.error("Erro ao carregar review:", error);
+        toast.error("Erro ao carregar review");
       } finally {
         setLoading(false);
       }

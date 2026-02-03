@@ -6,9 +6,10 @@ import { useParams, useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { Heart, MessageSquarePlus, ChevronLeft } from "lucide-react";
-import ReviewDialog from "@/src/components/User/ReviewDialog"; // <--- 1. IMPORT NOVO
+import ReviewDialog from "@/src/components/User/ReviewDialog";
 import ReviewList from "@/src/components/User/ReviewList";
 import { reviewService } from "@/src/services/ReviewService";
+import { toast } from "react-toastify";
 
 export default function ComicDetailsPage() {
   const { id } = useParams();
@@ -18,18 +19,15 @@ export default function ComicDetailsPage() {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(true);
   const [isLiked, setIsLiked] = useState(false);
-
-  // 2. NOVO ESTADO PARA O MODAL
   const [isReviewOpen, setIsReviewOpen] = useState(false);
 
   const fetchReviews = useCallback(async () => {
     if (!id) return;
     try {
-      // CORREÇÃO: Usar o método que busca POR HQ, não por ID da review
       const dataReviews = await reviewService.getReviewsByComic(id as string);
       setReviews(dataReviews);
     } catch (error) {
-      console.error("Erro ao atualizar reviews", error);
+      toast.error("Erro ao atualizar reviews");
     }
   }, [id]);
 
@@ -39,15 +37,11 @@ export default function ComicDetailsPage() {
 
       try {
         setLoading(true);
-        // Busca a HQ
         const dataComic = await comicService.getById(id as string);
         setComic(dataComic);
-
-        // Busca as Reviews (usando a função que criamos acima)
         await fetchReviews();
       } catch (error) {
-        console.error("Erro ao carregar dados:", error);
-        alert("HQ não encontrada!");
+        toast.error("Erro ao carregar dados");
         router.push("/feed");
       } finally {
         setLoading(false);
@@ -69,7 +63,6 @@ export default function ComicDetailsPage() {
 
   return (
     <div className="container mx-auto px-4 py-8 text-slate-300">
-      {/* Botão Voltar */}
       <Link
         href="/feed"
         className="inline-flex items-center hover:text-blue-600 mb-6 font-medium transition-colors"
@@ -79,7 +72,6 @@ export default function ComicDetailsPage() {
       </Link>
 
       <div className="flex flex-col md:flex-row gap-8 p-6 rounded-xl shadow-sm">
-        {/* === LADO ESQUERDO: CAPA (POSTER) === */}
         <div className="w-full md:w-1/3 lg:w-1/4 flex-shrink-0">
           <div className="relative aspect-[2/3] w-full rounded-lg overflow-hidden shadow-lg ">
             {comic.coverUrl ? (
@@ -96,9 +88,7 @@ export default function ComicDetailsPage() {
           </div>
         </div>
 
-        {/* === LADO DIREITO: INFORMAÇÕES E AÇÕES === */}
         <div className="flex-1 flex flex-col sm:flex-row gap-6">
-          {/* COLUNA DE TEXTO */}
           <div className="flex-1 flex flex-col">
             <div className="mb-3">
               <span className="text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider bg-blue-900 text-blue-100">
@@ -130,9 +120,7 @@ export default function ComicDetailsPage() {
             </div>
           </div>
 
-          {/* COLUNA DE BOTÕES */}
           <div className="min-w-[160px] flex flex-row sm:flex-col gap-3 justify-start pt-2 border-t sm:border-t-0 border-slate-700 mt-4 sm:mt-0 pt-4 sm:pt-0">
-            {/* Botão Like */}
             <button
               onClick={() => setIsLiked(!isLiked)}
               className="flex-1 sm:flex-none group flex items-center justify-center sm:justify-start gap-3 p-3 rounded-lg transition-all border sm:border-transparent border-slate-700 hover:bg-slate-800 active:scale-95"
@@ -154,9 +142,7 @@ export default function ComicDetailsPage() {
               </span>
             </button>
 
-            {/* Botão Review */}
             <button
-              // 3. AÇÃO DE ABRIR O MODAL
               onClick={() => setIsReviewOpen(true)}
               className="flex-1 sm:flex-none group flex items-center justify-center sm:justify-start gap-3 p-3 rounded-lg transition-all border sm:border-transparent border-slate-700 hover:bg-slate-800 active:scale-95"
             >
@@ -172,13 +158,12 @@ export default function ComicDetailsPage() {
         </div>
       </div>
 
-      {/* 4. RENDERIZAÇÃO DO MODAL */}
       <ReviewDialog
         isOpen={isReviewOpen}
         onClose={setIsReviewOpen}
         comicId={comic.id}
         onSuccess={() => {
-          console.log("Review criada! (Opcional: Recarregar dados)");
+          toast.success("Review criada!");
         }}
       />
       <ReviewList reviews={reviews} />

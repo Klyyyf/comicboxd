@@ -37,7 +37,6 @@ export function AdminInput({ label, name, ...props }: AdminInputProps) {
   );
 }
 
-// --- Componente de Textarea (Wrapper do Shadcn) ---
 export function AdminTextarea({ label, name, ...props }: AdminTextareaProps) {
   return (
     <div className="grid gap-2">
