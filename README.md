@@ -18,7 +18,7 @@ Antes de começar, certifique-se de ter as seguintes ferramentas instaladas em s
 
 2. Acesse a pasta do backend:
    ```bash
-   cd nome-do-seu-repo/backend
+   cd .\comicboxd-backend\
 
 Antes de rodar o projeto, você precisa configurar as variáveis de ambiente e as chaves de segurança.
 
@@ -42,7 +42,7 @@ O frontend foi desenvolvido utilizando **Next.js**. Siga os passos abaixo para e
 6. **Acesse a pasta do projeto web:**
    Abra um terminal na raiz do repositório e entre na pasta do frontend (ajuste o nome da pasta se necessário):
    ```bash
-      cd frontend
+      cd  .\comicboxd-frontend\
 
 7. **Instale as dependências: Execute o comando abaixo para baixar as bibliotecas necessárias:**
    ```bash
