@@ -14,7 +14,7 @@ Antes de começar, certifique-se de ter as seguintes ferramentas instaladas em s
 
 1. Clone o repositório:
    ```bash
-   git clone [https://github.com/Joaremio/nome-do-seu-repo.git](https://github.com/Joaremio/nome-do-seu-repo.git)
+   git clone https://github.com/Klyyyf/comicboxd.git
 
 2. Acesse a pasta do backend:
    ```bash
