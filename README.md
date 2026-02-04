@@ -8,7 +8,7 @@ Antes de começar, certifique-se de ter as seguintes ferramentas instaladas em s
 
 * [Git](https://git-scm.com)
 * [Node.js](https://nodejs.org/en/) (Versão 18 ou superior)
-* [Java JDK](https://www.oracle.com/java/technologies/downloads/) (Versão 17 ou 21, conforme seu projeto)
+* [Java JDK](https://www.oracle.com/java/technologies/downloads/) (Versão 17 ou 21)
 
 ### Rodando o Backend (API)
 
