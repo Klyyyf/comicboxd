@@ -32,6 +32,26 @@ Antes de rodar o projeto, você precisa configurar as variáveis de ambiente e a
 
 5. **Rodando a aplicação:**
     Volte para a raiz do backend e execute:
-     ```./mvnw spring-boot:run
+     ```bash
+     ./mvnw spring-boot:run
+
+### Rodando o Frontend (Next.js)
+
+O frontend foi desenvolvido utilizando **Next.js**. Siga os passos abaixo para executá-lo:
+
+6. **Acesse a pasta do projeto web:**
+   Abra um terminal na raiz do repositório e entre na pasta do frontend (ajuste o nome da pasta se necessário):
+   ```bash
+      cd frontend
+
+7. **Instale as dependências: Execute o comando abaixo para baixar as bibliotecas necessárias:**
+   ```bash
+      npm install
+
+8. **Execute o projeto: Inicie o servidor de desenvolvimento:**
+   ```bash
+      npm run dev
+9. **Acesse no navegador: O projeto estará rodando no endereço:**
+    http://localhost:3000
      
 
