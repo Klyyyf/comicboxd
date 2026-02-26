@@ -1,0 +1,21 @@
+# Configurações do Banco de Dados
+spring.datasource.url=jdbc:postgresql://localhost:5432/comicboxd
+spring.datasource.username=postgres
+spring.datasource.password=sua_senha_aqui
+
+spring.datasource.driver-class-name=org.postgresql.Driver
+
+# Configurações do JPA / Hibernate
+spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
+spring.jpa.hibernate.ddl-auto=update
+
+# Configurações de Inicialização de Dados (data.sql)
+spring.sql.init.mode=always
+spring.sql.init.encoding=UTF-8
+spring.sql.init.continue-on-error=true
+spring.jpa.defer-datasource-initialization=true
+
+# Configuração de Segurança (JWT)
+# estes arquivos estão em src/main/resources
+jwt.public.key=classpath:app.pub
+jwt.private.key=classpath:app.key
