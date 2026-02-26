@@ -1,6 +1,8 @@
 package br.ufrn.imd.comicboxd.repositories;
 
 import br.ufrn.imd.comicboxd.model.Review;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -39,5 +41,19 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
             @Param("comicId") Long comicId
     );
 
+    @Query(value = """
+        SELECT r
+        FROM Review r
+        JOIN FETCH r.user
+        JOIN FETCH r.comic
+        WHERE r.user.id IN :userIds
+        ORDER BY r.createdAt DESC
+    """,
+    countQuery = """
+        SELECT count(r)
+        FROM Review r
+        WHERE r.user.id IN :userIds
+    """)
+    Page<Review> findByUserIdIn(@Param("userIds") List<Long> userIds, Pageable pageable);
 }
 

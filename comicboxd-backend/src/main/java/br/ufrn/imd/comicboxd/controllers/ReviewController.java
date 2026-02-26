@@ -1,6 +1,5 @@
 package br.ufrn.imd.comicboxd.controllers;
 
-
 import br.ufrn.imd.comicboxd.dtos.ReviewRequestDTO;
 import br.ufrn.imd.comicboxd.dtos.ReviewResponseDTO;
 import br.ufrn.imd.comicboxd.dtos.ReviewUpdateDTO;
@@ -8,7 +7,12 @@ import br.ufrn.imd.comicboxd.service.ReviewService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -70,5 +74,18 @@ public class ReviewController {
         return ResponseEntity.ok().body(review);
     }
 
-}
+    @GetMapping("/feed")
+    public ResponseEntity<Page<ReviewResponseDTO>> getFeed(
+            @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable
+    ) {
+        Long currentUserId = getLoggedUserId();
 
+        Page<ReviewResponseDTO> feed = reviewService.getTimeline(currentUserId, pageable);
+        return ResponseEntity.ok(feed);
+    }
+
+    private Long getLoggedUserId() {
+        var auth = SecurityContextHolder.getContext().getAuthentication();
+        return Long.parseLong(auth.getName());
+    }
+}

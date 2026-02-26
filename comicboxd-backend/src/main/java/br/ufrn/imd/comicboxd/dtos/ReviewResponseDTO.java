@@ -2,5 +2,13 @@ package br.ufrn.imd.comicboxd.dtos;
 
 import java.time.LocalDateTime;
 
-public record ReviewResponseDTO(Long id, float rating, String comment, LocalDateTime createdAt, String username, String coverUrl, String comicName) {
+public record ReviewResponseDTO(
+        Long id,
+        float rating,
+        String comment,
+        LocalDateTime createdAt,
+        String username,
+        Long userId,
+        String coverUrl,
+        String comicName) {
 }
