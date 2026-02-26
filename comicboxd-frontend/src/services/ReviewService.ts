@@ -33,4 +33,8 @@ export const reviewService = {
     const response = await api.delete(`/reviews/${id}`);
     return response.data;
   },
+  getFeed: async (page = 0) => {
+      const response = await api.get(`/reviews/feed?page=${page}&size=10`);
+      return response.data; // O Spring retorna um Page<ReviewResponseDTO>
+  },
 };

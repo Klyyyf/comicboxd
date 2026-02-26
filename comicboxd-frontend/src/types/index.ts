@@ -24,6 +24,7 @@ export interface Review {
   username: string;
   coverUrl: string;
   comicName: string;
+  userId: number;
 }
 
 export interface ReviewDTO {
