@@ -4,6 +4,7 @@ import StarRating from "@/src/components/StarRating";
 import { reviewService } from "@/src/services/ReviewService";
 import { Review } from "@/src/types";
 import Image from "next/image";
+import Link from "next/link";
 
 import { useEffect, useState } from "react";
 import EditReviewDialog from "@/src/components/User/EditReviewDialog";
@@ -54,6 +55,17 @@ export default function ReviewsPage() {
                 />
               </div>
               <div className="flex flex-col gap-2 flex-1 min-w-0">
+
+                <div className="flex items-center gap-2">
+                    <span className="text-xs text-gray-500">Avaliado por:</span>
+                    <Link
+                        href={`/feed/profile/${review.userId}`}
+                        className="text-sm font-semibold text-purple-400 hover:text-purple-300 hover:underline"
+                    >
+                        {review.username || "Usuário"}
+                    </Link>
+                </div>
+
                 <h3 className="text-2xl font-bold text-white">
                   {review.comicName}
                 </h3>

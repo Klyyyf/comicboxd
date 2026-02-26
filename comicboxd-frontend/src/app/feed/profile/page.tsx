@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import api from "../../../services/api";
 import Container from "../../../components/Container";
-import Header from "../../../components/Header";
 import { User, Mail, LogOut, Edit2, Save, X } from "lucide-react";
 import { toast } from "react-toastify";
 

@@ -1,6 +1,8 @@
 import { Star, User as UserIcon } from "lucide-react";
+import Link from "next/link";
 
 interface ReviewCardProps {
+  id: number;
   username: string;
   rating: number;
   comment: string;
