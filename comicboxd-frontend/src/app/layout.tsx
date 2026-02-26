@@ -1,29 +1,30 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Container from "../components/Container";
 import Footer from "../components/Footer";
-import LatestNew from "../components/LatestNews";
+import MainNavbar from "../components/MainNavbar";
 import ToastProvider from "../components/ToastProvider";
 
 export const metadata: Metadata = {
-  title: "ComicBoxd",
-  description: "Sua biblioteca de quadrinhos online",
+    title: "ComicBoxd",
+    description: "Sua biblioteca de quadrinhos online",
 };
 
 export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
+                                       children,
+                                   }: {
+    children: React.ReactNode;
 }) {
-  return (
-    <html lang="pt-BR">
-      <body className="bg-[#14181c] min-h-screen text-white flex flex-col">
+    return (
+        <html lang="pt-BR">
+        <body className="bg-[#14181c] min-h-screen text-white flex flex-col">
+        <MainNavbar />
+
         <main className="flex-1">
-          <ToastProvider />
-          {children}
+            <ToastProvider />
+            {children}
         </main>
         <Footer />
-      </body>
-    </html>
-  );
+        </body>
+        </html>
+    );
 }

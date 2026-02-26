@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import Container from "../../components/Container";
-import Header from "../../components/Header";
 import { comicService } from "@/src/services/comicService";
 import { Comic } from "@/src/types";
 import ComicsList from "@/src/components/Admin/ComicsList";
@@ -44,8 +43,6 @@ export default function AdminPage() {
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white">
       <Container>
-        <Header />
-
         <main className="py-10">
           <div className="flex justify-between items-center mb-8 border-b border-gray-800 pb-4">
             <div>

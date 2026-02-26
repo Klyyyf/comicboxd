@@ -34,6 +34,10 @@ export default function Header() {
         <li className={menuItem}>
           <Link href="/register">REGISTRO</Link>
         </li>
+
+        <li className={menuItem}>
+          <Link href="/news">NOTÍCIAS</Link>
+        </li>
       </ul>
 
       <div className="relative">

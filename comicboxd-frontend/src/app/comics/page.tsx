@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { ComicService, ComicDTO, Page } from "@/src/services/api";
-import UserHeader from "../../components/User/UserHeader";
 import Link from "next/link";
 import Image from "next/image";
 import { CiSearch } from "react-icons/ci";
@@ -58,7 +57,6 @@ export default function HQsPage() {
 
   return (
     <div className="min-h-screen bg-[#0f1317] text-white">
-      <UserHeader />
 
       <main className="max-w-7xl mx-auto px-4 py-8">
         <div className="flex flex-col gap-6 mb-8">

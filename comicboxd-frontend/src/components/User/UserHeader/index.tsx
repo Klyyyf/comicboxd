@@ -45,6 +45,10 @@ export default function UserHeader() {
         </li>
 
         <li className={menuItem}>
+          <Link href="/news">NOTÍCIAS</Link>
+        </li>
+
+        <li className={menuItem}>
           <div
             className="flex items-center justify-center gap-2 cursor-pointer"
             onClick={handleLogout}
